@@ -4,9 +4,12 @@ import numpy as np
 
 COLOR_BG = (10, 10, 10)
 COLOR_GRID = (40, 40, 40)
-COLOR_DIE_NEXT = (170, 170, 170)
+COLOR_DIE_NEXT = (0, 120, 120)
 COLOR_ALIVE_NEXT = (255, 255, 255)
-SIZE = 10
+
+SIZE = 5
+WIDTH = 180
+HEIGHT = 100
 
 
 def update(screen, cells, size, with_progress=False):
@@ -37,10 +40,10 @@ def update(screen, cells, size, with_progress=False):
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((80 * SIZE, 60 * SIZE))
+    screen = pygame.display.set_mode((WIDTH * SIZE, HEIGHT * 1.2 * SIZE))
 
-    cells = np.zeros((60, 80))
-    screen.fill(COLOR_GRID)
+    cells = np.zeros((HEIGHT, WIDTH))
+    # screen.fill(COLOR_GRID)
     update(screen, cells, SIZE)
 
     pygame.display.flip()
@@ -58,19 +61,28 @@ def main():
                     running = not running
                     update(screen, cells, SIZE)
                     pygame.display.update()
+                if event.key == pygame.K_r:
+                    random = np.random.randint(2, size=(HEIGHT, WIDTH))
+                    cells = random
+                    update(screen, cells, SIZE)
+                    pygame.display.update()
+                if event.key == pygame.K_c:
+                    cells = np.zeros((HEIGHT, WIDTH))
+                    update(screen, cells, SIZE)
+                    pygame.display.update()
             if pygame.mouse.get_pressed()[0]:
                 pos = pygame.mouse.get_pos()
                 cells[pos[1] // SIZE, pos[0] // SIZE] = 1
                 update(screen, cells, SIZE)
                 pygame.display.update()
 
-        screen.fill(COLOR_GRID)
+        # screen.fill(COLOR_GRID)
 
         if running:
             cells = update(screen, cells, SIZE, with_progress=True)
             pygame.display.update()
 
-        time.sleep(0.001)
+        time.sleep(0.005)
 
 
 if __name__ == '__main__':
