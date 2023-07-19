@@ -12,6 +12,13 @@ WIDTH = 180
 HEIGHT = 100
 
 
+
+
+def draw_text(text, font, text_color, x, y, screen):
+    img = font.render(text, True, text_color)
+    screen.blit(img, (x, y))
+
+
 def update(screen, cells, size, with_progress=False):
     updated_cells = np.zeros((cells.shape[0], cells.shape[1]))
 
@@ -40,8 +47,13 @@ def update(screen, cells, size, with_progress=False):
 
 def main():
     pygame.init()
+    text_font = pygame.font.SysFont("Mono", 18)
     screen = pygame.display.set_mode((WIDTH * SIZE, HEIGHT * 1.2 * SIZE))
 
+    draw_text("mouse click - spawn alive cells", text_font, COLOR_ALIVE_NEXT, 100, 556, screen)
+    draw_text("space - pause/unpause", text_font, COLOR_ALIVE_NEXT, 100, 502, screen)
+    draw_text("r - random cells", text_font, COLOR_ALIVE_NEXT, 100, 520, screen)
+    draw_text("c - clear", text_font, COLOR_ALIVE_NEXT, 100, 538, screen)
     cells = np.zeros((HEIGHT, WIDTH))
     # screen.fill(COLOR_GRID)
     update(screen, cells, SIZE)
