@@ -47,13 +47,19 @@ def update(screen, cells, size, with_progress=False):
 
 def main():
     pygame.init()
-    text_font = pygame.font.SysFont("Mono", 18)
+
+    font_size = 18
+    text_font = pygame.font.SysFont("Mono", font_size)
+    text_x = 100
+    text_y = 502
+
     screen = pygame.display.set_mode((WIDTH * SIZE, HEIGHT * 1.2 * SIZE))
 
-    draw_text("mouse click - spawn alive cells", text_font, COLOR_ALIVE_NEXT, 100, 556, screen)
-    draw_text("space - pause/unpause", text_font, COLOR_ALIVE_NEXT, 100, 502, screen)
-    draw_text("r - random cells", text_font, COLOR_ALIVE_NEXT, 100, 520, screen)
-    draw_text("c - clear", text_font, COLOR_ALIVE_NEXT, 100, 538, screen)
+    draw_text("mouse click - spawn alive cells", text_font, COLOR_ALIVE_NEXT, text_x, text_y, screen)
+    draw_text("space - pause/unpause", text_font, COLOR_ALIVE_NEXT, text_x, text_y + font_size, screen)
+    draw_text("r - random cells", text_font, COLOR_ALIVE_NEXT, text_x, text_y + (2 * font_size), screen)
+    draw_text("c - clear", text_font, COLOR_ALIVE_NEXT, text_x, text_y + (3 * font_size), screen)
+
     cells = np.zeros((HEIGHT, WIDTH))
     # screen.fill(COLOR_GRID)
     update(screen, cells, SIZE)
